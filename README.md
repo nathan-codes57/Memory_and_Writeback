@@ -12,104 +12,63 @@ verified.
 
 ## Design Scope and Assumptions
 
-- **In scope:** [What this lab implements]
+- **In scope:** This lab implements a memory and writeback MIPS pipeline stage in verilog.
 
-- **Out of scope:** [What this lab intentionally does not implement]
+- **Out of scope:** Fetch, Decode, Execute
 
-- **Assumptions:** [Clock frequency, reset behavior,
+- **Assumptions:** All unconnected wires will route to other pipeline states in the future.
+
+- **Limitations:** Limited to 32 bit bus and 256 addresses in data memory.
  
-data width, memory model, or
-
-other assumptions]
-
-- **Limitations:** [Known limitations or simplified
- 
-behaviors]
 
 ## Requirements
 
 | Requirement | Description | Verification Method |
-
 |---|---|---|
+| Data Memory | Holds data memory, allowing reads and writes | Test case, waveform, inspection |
+| And | Determines if branch will occur | Test case, waveform, inspection |
+| MEM/WB Latch | Holds and passes data on to the next pipeline stage | Test case, waveform, inspection |
+| WB | Determine what data gets written back to decode stage | Test case, waveform, inspection |
+| Memory | Ties all 3 minor modules together into overall memory stage | Test case, waveform, inspection |
 
-| REQ-01 | [The design shall ...] | [Test case, waveform, calculation, or
 
-inspection]
- 
-|
-
-| REQ-02 | [The design shall ...] | [Test case, waveform, calculation, or
-
-inspection]
- 
-|
-
-| REQ-03 | [The design shall ...] | [Test case, waveform, calculation, or
-
-inspection]
- 
-|
-
-## Architecture
-
-### Timing or Behavioral Summary
-
-Save diagrams in the repository's `images/` folder.
- 
-Use relative paths so they
-
-display on GitHub.
-
-![Timing Diagram](images/[timing-diagram-filename].png)
 
 ## Implementation
 
 ### Source Code
 
 | File | Description |
-
 |---|---|
-
-| [`[module].v`](LINK_TO_IMPLEMENTATION_CODE) | [Primary implementation module] |
-
-| [`[component].v`](LINK_TO_COMPONENT_CODE) | [Supporting component] |
-
-| [`[testbench].v`](LINK_TO_TESTBENCH_CODE) | [Verification testbench] |
+| [`AND.v`](https://github.com/nathan-codes57/Memory_and_Writeback/blob/main/Source-Files/AND.v) | Source code for and module |
+| [`data_memory.v`](https://github.com/nathan-codes57/Memory_and_Writeback/blob/main/Source-Files/data_memory.vE) | Source code for data memory module |
+| [`mem_wb.v`](https://github.com/nathan-codes57/Memory_and_Writeback/blob/main/Source-Files/mem_wb.v) | Source code for memory/writeback latch module|
+| [`MEMORY.v`](https://github.com/nathan-codes57/Memory_and_Writeback/blob/main/Source-Files/MEMORY.v) | Source code for memory module|
+| [`WB.v`](https://github.com/nathan-codes57/Memory_and_Writeback/blob/main/Source-Files/WB.v) | Source code for writeback module |
+| [`memoryTB.v`](https://github.com/nathan-codes57/Memory_and_Writeback/blob/main/Testbenches/memoryTB.v) | Source code for memory testbench |
 
 ### Implementation Notes
 
-- [Explain one important design decision.]
+- 32 bit data bus, 256 memory addresses.
 
-- [Identify
- 
-any parameterization, reusable module, or interface convention.]
+- Data memory is a reusable module.
 
-- [Document
- 
-any deliberate simplification made for this lab.]
+- Modules wired to other pipeline stages left disconnected.
 
 ## Verification
 
 ### Verification Strategy
 
-The design is verified using **[simulation, formal checks, hardware testing, or
+The design is verified using simulation.
 
-another method]**.
 Verification covers:
 
 - [Normal operating case]
 
-- [Boundary
- 
-or maximum-value case]
+- [Boundary or maximum-value case]
 
-- [Reset or
- 
-initialization case]
+- [Reset or initialization case]
 
-- [Invalid,
- 
-stalled, or exceptional case, if applicable]
+- [Invalid, stalled, or exceptional case, if applicable]
 
 ### Testbench and Waveform
 
